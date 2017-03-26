@@ -32,6 +32,7 @@ function draw () {
   prevSec = S;
   var mils = floor(millis() - millisRolloverTime);
 
+  draw_calendar()
   draw_clock(H, M, S, mils, -1)
 }
 
