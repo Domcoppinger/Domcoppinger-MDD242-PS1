@@ -5,6 +5,7 @@ var hourSlider;
 var minSlider;
 var secSlider;
 var millisSlider;
+var daySlider; // Added daySlider variable
 var alarmSlider;
 
 function debug_setup() {
@@ -18,6 +19,8 @@ function debug_setup() {
   secSlider.parent("sliderSeconds")
   millisSlider = createSlider(0, 999, 0);
   millisSlider.parent("sliderMillis")
+  daySlider = createSlider(0, 31, 0); // Added daySlider
+  daySlider.parent("sliderDay")  // Added daySlider
   alarmCheckbox = createCheckbox('', false);
   alarmCheckbox.parent("checkboxAlarm")
   alarmSlider = createSlider(0, 60, 0);

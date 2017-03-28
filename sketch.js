@@ -6,6 +6,8 @@ var millisRolloverTime;
 var nextAlarm;
 var debug_is_on = (typeof DEBUG !== 'undefined');
 
+// Note - Edited this in an attempt to add a slider for the day as this clock also changes based on the current date. However this would have required piping a new variable (day) through to the draw_clock function - something which I was worried wasn't allowed under the scope of this project. As such I have not finished it off. However I have left my changes (here and in the debug.html and debug.js files) to highlight how I would have done this... (Also see note at bottom of this file)
+
 function setup () {
   // create the drawing canvas, save the canvas element
   var main_canvas = createCanvas(canvasWidth, canvasHeight);
@@ -20,8 +22,8 @@ function setup () {
 }
 
 function turn_on_alarm() {
-  nextAlarm = millis() + 20000;    
-  print("Alarm on: T minus 20 seconds");  
+  nextAlarm = millis() + 10000;    // Edited this to be 10 seconds (to save time testing)
+  print("Alarm on: T minus 10 seconds");  // Edited the text to match up to the new alarm time
 }
 
 function turn_off_alarm() {
@@ -50,6 +52,7 @@ function draw () {
     minSlider.removeAttribute('disabled');
     secSlider.removeAttribute('disabled');
     millisSlider.removeAttribute('disabled');
+    daySlider.removeAttribute('disabled'); //Added day slider
     alarmCheckbox.removeAttribute('disabled');
     alarmSlider.removeAttribute('disabled');
 
@@ -57,6 +60,7 @@ function draw () {
     M = minSlider.value();
     S = secSlider.value();
     mils = millisSlider.value();
+    dateday = daySlider.value(); // Added day variable
     if (alarmCheckbox.checked()) {
       alarm = alarmSlider.value();
     }
@@ -69,6 +73,7 @@ function draw () {
     H = hour();
     M = minute();
     S = second();
+	var dateday = day();  // Added day variable
     if (nextAlarm > 0) {
       now = millis();
       var millis_offset = nextAlarm - now;
@@ -102,6 +107,7 @@ function draw () {
       minSlider.attribute('disabled','');
       secSlider.attribute('disabled','');
       millisSlider.attribute('disabled','');
+      daySlider.attribute('disabled',''); // Added day slider
       alarmCheckbox.attribute('disabled','');
       alarmSlider.attribute('disabled','');
 
@@ -109,13 +115,14 @@ function draw () {
       minSlider.value(M);
       secSlider.value(S);
       millisSlider.value(mils);
+      daySlider.value(dateday); // Added day slider
       alarmCheckbox.checked(alarm >= 0);
       alarmSlider.value(alarm);
     }
   }
 
-  draw_calendar();
   draw_clock(H, M, S, mils, alarm);
+  console.log(dateday); // This was added to check if the day was being changed by the slider. It is, however since this slider based setting of it isn't passed to draw_clock and then draw_calendar it doesn't affect the clock itself. (See note at top of this file).
 }
 
 function keyTyped() {
