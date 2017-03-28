@@ -114,6 +114,7 @@ function draw () {
     }
   }
 
+  draw_calendar();
   draw_clock(H, M, S, mils, alarm);
 }
 
