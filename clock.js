@@ -9,48 +9,10 @@ var texty = 250;
 var textX = [375, 475, 575, 595];
 var shadow;
 
-function draw_calendar() {
-	strokeWeight(0);
-
-var light = hour();	
-	
-	if (light >= 8 && light <= 21) {
-		background(238, 221, 130);
-	}	else {
-		background(0, 0, 90);
-	}
-	
-var date_day = 31 - day(); // These values take away from the target date (end of month, year, and century) to provide the countdown element to the clock. The day value doesn't account for differences in the lengths of months right now.
-var date_month = 12 - month();
-var date_year = 2100 - year();
-var fill_value;
-
-	fill_value = map(date_year, 0, 100, 0, 245); // This maps the 
-	fill(fill_value - 10);	
-	ellipse(485, 255, 630, 630);
-	fill(fill_value);	
-	ellipse(480, 250, 630, 630);
-	
-	fill_value = map(date_month, 1, 12, 0, 245);
-	fill(fill_value - 10);	
-	ellipse(485, 255, 490, 490);
-	fill(fill_value);
-	ellipse(480, 250, 490, 490);
-	
-	fill_value = map(date_day, 1, 31, 0, 245);
-	fill(fill_value - 10);	
-	ellipse(485, 255, 350, 350);
-	fill(fill_value);
-	ellipse(480, 250, 350, 350);
-	
-	//console.log(date_day);
-	//console.log(date_month);
-	//console.log(date_year);
-}
  
 function draw_clock(hour, minute, second, millis, alarm) {
 	strokeWeight(2); // Stroke weight to 8 pixels
-	stroke(0);
+	stroke(0); // This 
 	textSize(40);
 	textAlign(CENTER, CENTER);// Aligns the text so it is centered AROUND the position it is placed at, rather than placed starting from it's designated position
 	fill(255); // This is used to reset the color so all the numbers aren't colored red
@@ -100,4 +62,44 @@ function draw_clock(hour, minute, second, millis, alarm) {
 	//console.log(minute);
 	//console.log(second);
 	//console.log(millisXpos);
+}
+
+function draw_calendar() {
+	strokeWeight(0);
+
+var light = hour;	
+	
+	if (light >= 8 && light <= 21) {
+		background(238, 221, 130);
+	}	else {
+		background(0, 0, 90);
+	}
+	
+var date_day = 31 - day(); // These values take away from the target date (end of month, year, and century) to provide the countdown element to the clock. The day value doesn't account for differences in the lengths of months right now.
+var date_month = 12 - month();
+var date_year = 2100 - year();
+var fill_value;
+
+	fill_value = map(date_year, 0, 100, 0, 245); // This maps the shade of the circle representing this unit on the calendar to how long until that the end of that time unit (E.g. the closer till the end of the month the darker the shade).
+	fill(fill_value - 10);	
+	ellipse(485, 255, 630, 630);
+	fill(fill_value);	
+	ellipse(480, 250, 630, 630);
+	
+	fill_value = map(date_month, 1, 12, 0, 245);
+	fill(fill_value - 10);	
+	ellipse(485, 255, 490, 490);
+	fill(fill_value);
+	ellipse(480, 250, 490, 490);
+	
+	fill_value = map(date_day, 1, 31, 0, 245);
+	fill(fill_value - 10);	
+	ellipse(485, 255, 350, 350);
+	fill(fill_value);
+	ellipse(480, 250, 350, 350);
+	
+	//console.log(date_day);
+	//console.log(date_month);
+	//console.log(date_year);
+	console.log(light);
 }
