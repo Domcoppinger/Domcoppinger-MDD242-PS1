@@ -8,27 +8,9 @@ var millisXpos, shadow, alarm_time;
 var texty = 250;
 var textX = [375, 475, 575, 595];
 var alarm_color = false;
-
-// Alarm function		
-	if (alarm_duration == 0) { // resets this function after the alarm has finished it's job
-		alarm = -1;
-		alarm_color = false;
-		alarm_started = false;
-	
-	// Alarm text
-	alarmTextSize = (map((alarm * -1), -10000, 0, 0, 59) + 15); //Maps alarm text size to how close to being done it is
-	textSize(alarmTextSize);
-	fill(255,0,0); // Makes alarm text red
-	text(alarm, 480, 390);
-	
-	print("Alarm color:");
-	console.log(alarm_color);
-	print("Alarm time:");
-	console.log(alarm);
-	}
 	
 // Background calendar elements function
-function draw_calendar(hour) {
+function draw_calendar(hour, alarm) {
 	strokeWeight(0);
 
 var BGcol = color(100);
@@ -44,9 +26,11 @@ var BGtime = map(hour, 0, 23, 0.0, 1);
 	}
 	
 	if (alarm = 0) {
-		BGcol = (255, 0, 0);
-		background(BGcol);
-	}	else {
+		for (var alarm_count = 0; alarm_count > 0; alarm_count++) {
+			BGcol = color(255, 0, 0);
+			background(BGcol);
+			}
+		}	else {
 		background(BGcol);
 	}
 	
@@ -86,7 +70,7 @@ var fill_value;
 function draw_clock(hour, minute, second, millis, alarm) {
 	
 	// Draws the background elements of the clock that show changes to the date first (so they are beneath the other elements)
-	draw_calendar(hour);
+	draw_calendar(hour, alarm);
 	
 	//alarm condition goes here, triggers the alarm function on mouse press IF it isn't already triggered.
 	if (keyIsPressed) { // Checks if user starts clock by pressing a key - also checks if alarm is started already - AND checks if the alarm has been started by the debug page
@@ -138,6 +122,21 @@ function draw_clock(hour, minute, second, millis, alarm) {
 
 	fill('red'); //This is used to set the milli seconds text to red
 	text(millis, textX[3] + second / 2, millisXpos);
+	
+	// Alarm function		
+	// Alarm text
+	if (alarm > 0) {
+	alarmTextSize = (map(5, -10000, 0, 0, 59) + 15); //Maps alarm text size to how close to being done it is
+	textSize(alarmTextSize);
+	fill(255,0,0); // Makes alarm text red
+	var alarm_text = round(alarm);
+	text(alarm_text, 480, 390);
+	}
+	
+	print("Alarm color:");
+	console.log(alarm_color);
+	print("Alarm time:");
+	console.log(alarm);
 	
 	//console.log(hour);
 	//console.log(minute);
