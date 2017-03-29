@@ -122,6 +122,7 @@ function draw () {
   }
 
   draw_clock(H, M, S, mils, alarm);
+  print("Day:"); // Used to clear up which value is which in console
   console.log(dateday); // This was added to check if the day was being changed by the slider. It is, however since this slider based setting of it isn't passed to draw_clock and then draw_calendar it doesn't affect the clock itself. (See note at top of this file).
 }
 
