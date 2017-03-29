@@ -12,12 +12,13 @@ var alarm_color = false;
 
 // Alarm function
 function alarm_clock(second, alarm_time) {
+	
 	var alarm_time_buffer, alarm_time_buffer2, alarmTextSize, alarm_duration;
 	
 	if (alarm_started = false) { //Checks if the alarm has just been triggered or now
-		alarm_started = true;
 		alarm_time_buffer2 = millis;
 		alarm_duration = 300; // 300 units at 60fps is 5 seconds
+		alarm_started = true;
 	}
 	
 	if (alarm_time_buffer2 < millis) { // This code is used to measure how much time has passed since the alarm function was last called (a tiny unit of time)
@@ -112,9 +113,9 @@ function draw_clock(hour, minute, second, millis, alarm) {
 	draw_calendar(hour);
 	
 	//alarm condition goes here, triggers the alarm function on mouse press IF it isn't already triggered.
-	if (mouseIsPressed && alarm_started == false || alarm == 10000) { // Checks if user starts clock by clicking - also checks if alarm is started already - AND checks if the alarm has been started by the debug page
-		alarm_time = 10000;
-		alarm_clock(second, alarm_time);
+	if (keyIsPressed && alarm_started == false || alarm == 10000) { // Checks if user starts clock by pressing a key - also checks if alarm is started already - AND checks if the alarm has been started by the debug page
+		alarm = 10000;
+		alarm_clock(second, alarm);
 	}
 	
 	strokeWeight(2); // Stroke weight to 8 pixels
