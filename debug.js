@@ -19,8 +19,12 @@ function debug_setup() {
   secSlider.parent("sliderSeconds")
   millisSlider = createSlider(0, 999, 0);
   millisSlider.parent("sliderMillis")
-  daySlider = createSlider(0, 31, 0); // Added daySlider
-  daySlider.parent("sliderDay")  // Added daySlider
+  daySlider = createSlider(1, 31, 27); // Added daySlider
+  daySlider.parent("sliderDay")  // Added daySlider  
+  monthSlider = createSlider(0, 11, 8); // Added monthSlider
+  monthSlider.parent("sliderMonth")  // Added monthSlider  
+  yearSlider = createSlider(2000, 2100, 2085); // Added yearSlider
+  yearSlider.parent("sliderYear")  // Added yearSlider
   alarmCheckbox = createCheckbox('', false);
   alarmCheckbox.parent("checkboxAlarm")
   alarmSlider = createSlider(0, 60, 0);

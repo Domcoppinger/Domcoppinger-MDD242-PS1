@@ -1,5 +1,5 @@
 ## PS1 MDDN 242 2017
 
-### Maeda's 8th clock revised
+### Final clock
 
-This is a clock based on Maeda's 8th clock design. Originally I started to re-create Maeda's design with the minute and hour numbers changing sizes in time with the seconds, however I decided to modify this concept slightly to create a much longer loop of sizes and include more detailed times.
+The result of many iterations of work this is an clock with a focus on simplicity and longevity. It uses a fairly standard text display for the time however these numbers scale the closer they get to the end of their time unit (second, minute, hour, or day). The background color changes to represent the time of day. The three circles also change shade relative to their distance to the end of their greater time unit (month, year, century). There is also two possible alarm countdowns and warnings which are picked at random. The base code has also been modified to allow the new time units and to debug them.

@@ -45,7 +45,7 @@ function mouseClicked() {
 
 // taking ideas from http://cmuems.com/2016/60212/deliverables/deliverables-02/
 function draw () {
-  var H, M, S, mils, alarm;
+  var H, M, S, mils, alarm, dateday, datemonth, dateyear; // Added day, month, and year variables
 
   if (debug_is_on && debugCheckbox.checked()) {
     hourSlider.removeAttribute('disabled');
@@ -53,6 +53,8 @@ function draw () {
     secSlider.removeAttribute('disabled');
     millisSlider.removeAttribute('disabled');
     daySlider.removeAttribute('disabled'); //Added day slider
+    monthSlider.removeAttribute('disabled'); //Added month slider
+    yearSlider.removeAttribute('disabled'); //Added year slider
     alarmCheckbox.removeAttribute('disabled');
     alarmSlider.removeAttribute('disabled');
 
@@ -61,6 +63,8 @@ function draw () {
     S = secSlider.value();
     mils = millisSlider.value();
     dateday = daySlider.value(); // Added day variable
+    datemonth = monthSlider.value(); // Added month variable
+    dateyear = yearSlider.value(); // Added year variable
     if (alarmCheckbox.checked()) {
       alarm = alarmSlider.value();
     }
@@ -73,7 +77,10 @@ function draw () {
     H = hour();
     M = minute();
     S = second();
-	var dateday = day();  // Added day variable
+	mils = millis();
+	dateday = day();  // Added day variable
+	datemonth = month();  // Added month variable
+	dateyear = year();  // Added year variable
     if (nextAlarm > 0) {
       now = millis();
       var millis_offset = nextAlarm - now;
@@ -108,6 +115,8 @@ function draw () {
       secSlider.attribute('disabled','');
       millisSlider.attribute('disabled','');
       daySlider.attribute('disabled',''); // Added day slider
+      monthSlider.attribute('disabled',''); // Added month slider
+      yearSlider.attribute('disabled',''); // Added year slider
       alarmCheckbox.attribute('disabled','');
       alarmSlider.attribute('disabled','');
 
@@ -116,14 +125,17 @@ function draw () {
       secSlider.value(S);
       millisSlider.value(mils);
       daySlider.value(dateday); // Added day slider
+      monthSlider.value(datemonth); // Added month slider
+      yearSlider.value(dateyear); // Added year slider
       alarmCheckbox.checked(alarm >= 0);
       alarmSlider.value(alarm);
     }
   }
 
-  draw_clock(H, M, S, mils, alarm);
-  print("Day:"); // Used to clear up which value is which in console
-  console.log(dateday); // This was added to check if the day was being changed by the slider. It is, however since this slider based setting of it isn't passed to draw_clock and then draw_calendar it doesn't affect the clock itself. (See note at top of this file).
+  draw_clock(H, M, S, mils, alarm, dateday, datemonth, dateyear); // Expanded this to output the day, month, and year variables
+  
+  //print("Day:"); // Used to clear up which value is which in console
+  //console.log(dateday); // This was added to check if the day was being changed by the slider. It is, however since this slider based setting of it isn't passed to draw_clock and then draw_calendar it doesn't affect the clock itself. (See note at top of this file).
 }
 
 function keyTyped() {
