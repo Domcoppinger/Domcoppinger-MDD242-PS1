@@ -2,7 +2,7 @@
  * use p5.js to draw a clock on a 960x500 canvas
  */ 
  
-// Concept. Have the second minute and hour displayed and then have their size be made relative to their distance from them resetting (i.e. them completing their full cycle through to their individual maximum values).
+// Concept. Have the second minute and hour displayed and then have their size be made relative to their distance from them resetting (i.e. them completing their full cycle through to their individual maximum values). Also have the date represented in different shades.
 
 var millisXpos, shadow, alarm_time, alarm_random;
 var texty = 250;
@@ -23,12 +23,18 @@ function FillValueFun (fill_value, DiffValue) {
 // Background calendar elements function
 function draw_calendar(hour, alarm, second, millis, day, month, year) {
 	strokeWeight(0);
-
+	
+	// Various variables used in calendar only
+var light = hour; // Moved hour to a new variable for draw_calendar to ensure it wasn't changed
 var BGcol = color(100);
-var light = hour;
 var DayCol = color(255, 160, 0);
 var NightCol = color(0, 0, 80);
 var BGtime = map(hour, 0, 23, 0.0, 1);
+var date_day = 31 - day; // These values take away from the target date (end of month, year, and century) to provide the countdown (not alarm) element to the clock. The day value doesn't account for differences in the lengths of months right now.
+var date_month = 12 - month;
+var date_year = 2100 - year;
+var fill_value;
+var InDiff = 50; // The difference in shade (lighter or darker depending on how light or dark the inner circle) between the inner and outer ellipse that represent the calendar
 	
 	// This code changes the background color depending on the time of day
 	if (light <= 12) {
@@ -48,12 +54,6 @@ var BGtime = map(hour, 0, 23, 0.0, 1);
 		background(BGcol);
 	}
 
-var date_day = 31 - day; // These values take away from the target date (end of month, year, and century) to provide the countdown (not alarm) element to the clock. The day value doesn't account for differences in the lengths of months right now.
-var date_month = 12 - month;
-var date_year = 2100 - year;
-var fill_value;
-var InDiff = 50; // The difference in shade (lighter or darker depending on how light or dark the inner circle) between the inner and outer ellipse that represent the calendar
-
 	fill_value = map(date_year, 0, 100, 0, 245); // This maps the shade of the circle representing this unit on the calendar to how long until that the end of that time unit (E.g. the closer till the end of the month the darker the shade).
 	FillValueFun(fill_value, InDiff); // Function to change the shade of the outer circle to be a shade darker than the outer, expect where the outer has hit max darkness, then it will be a shade lighter.
 	ellipse(485, 255, 630, 630);
@@ -61,7 +61,7 @@ var InDiff = 50; // The difference in shade (lighter or darker depending on how 
 	ellipse(480, 250, 630, 630);
 	
 	fill_value = map(date_month, 1, 12, 0, 245);
-	FillValueFun(fill_value, InDiff); // Sahde change function
+	FillValueFun(fill_value, InDiff); // Shade change function
 	ellipse(485, 255, 490, 490);
 	fill(fill_value);
 	ellipse(480, 250, 490, 490);
@@ -99,16 +99,6 @@ var InDiff = 50; // The difference in shade (lighter or darker depending on how 
 			fill(fill_value);
 			ellipse(480, 250, 350, 350);
 	}
-	
-	//console.log(date_day);
-	//console.log(date_month);
-	//console.log(date_year);
-	//console.log(light);
-	//console.log(hour);
-	//console.log(BGtime);
-	//console.log(BGcol);
-	console.log(alarm_random);
-	//print(BGcol);
 }
  
 function draw_clock(hour, minute, second, millis, alarm, day, month, year) { // Changed this to accept variables from the expanded API
@@ -121,12 +111,6 @@ function draw_clock(hour, minute, second, millis, alarm, day, month, year) { // 
 	textSize(40);
 	textAlign(CENTER, CENTER);// Aligns the text so it is centered AROUND the position it is placed at, rather than placed starting from it's designated position
 	fill(255); // This is used to reset the color so all the numbers aren't colored red
-	
-	// These were used to set the variables to quickly debug the clock and check how it looked at different times
-	//millis = 999;
-	//second = 0;
-	//minute = 59;
-	//hour = 12;
 	
 	shadow = map(hour, 0, 23, 1.25, 1.75)
 	textSize(map(hour, 0, 23, 0, 59) + 15); //The inclusion of the equation element in this text size is to ensure that the size of the hour text is relative to the other text elements.
@@ -158,35 +142,6 @@ function draw_clock(hour, minute, second, millis, alarm, day, month, year) { // 
 	
 	fill(100);
 	text(millis, textX[3] + 0.5 + second / 2, millisXpos + 0.5); // This sets the position of the millisecond text so that it is always just beside the second value, no matter how small it is.
-
 	fill('red'); //This is used to set the milli seconds text to red
 	text(millis, textX[3] + second / 2, millisXpos);
-	
-	// Old Alarm function		
-	// Alarm text
-	//if (alarm > 0) {
-	//	alarmTextSize = (map(5, -10000, 0, 0, 59) + 15); //Maps alarm text size to how close to being done it is
-	//	textSize(alarmTextSize);
-	//	fill(240,0,0); // Makes alarm text red
-	//	var alarm_text = round(alarm);
-	//	text(alarm_text, 480, 390);
-	//} else if (alarm == 0) {
-	//	fill(240,0,0); // Makes alarm text red
-	//	textSize(45);
-	//	text("Alarm!", 480, 390);
-	//}
-	
-	//print("Alarm time:");
-	//console.log(alarm);
-	
-	//console.log(hour);
-	//console.log(minute);
-	//console.log(second);
-	print("Day:");
-	console.log(day);
-	print("Month:");
-	console.log(month);
-	print("Year:");
-	console.log(year);
-	//console.log(millisXpos);
 }

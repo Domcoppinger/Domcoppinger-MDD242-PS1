@@ -6,7 +6,7 @@ var millisRolloverTime;
 var nextAlarm;
 var debug_is_on = (typeof DEBUG !== 'undefined');
 
-// Note - Edited this in an attempt to add a slider for the day as this clock also changes based on the current date. However this would have required piping a new variable (day) through to the draw_clock function - something which I was worried wasn't allowed under the scope of this project. As such I have not finished it off. However I have left my changes (here and in the debug.html and debug.js files) to highlight how I would have done this... (Also see note at bottom of this file)
+// Note - Edited this file to add date functionality and the corrresponding debug functionality.
 
 function setup () {
   // create the drawing canvas, save the canvas element
@@ -133,9 +133,7 @@ function draw () {
   }
 
   draw_clock(H, M, S, mils, alarm, dateday, datemonth, dateyear); // Expanded this to output the day, month, and year variables
-  
-  //print("Day:"); // Used to clear up which value is which in console
-  //console.log(dateday); // This was added to check if the day was being changed by the slider. It is, however since this slider based setting of it isn't passed to draw_clock and then draw_calendar it doesn't affect the clock itself. (See note at top of this file).
+
 }
 
 function keyTyped() {
